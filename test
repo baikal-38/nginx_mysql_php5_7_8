@@ -1,0 +1,21 @@
+sudo docker run -d -t -i \
+-v ./www:/var/www \
+--name container_php_8.3 \
+docker_test-php:latest
+
+
+
+sudo docker run -d -t -i \
+-v ./hosts/nginx.conf:/etc/nginx/nginx.conf \
+-v ./hosts/conf.d:/etc/nginx/conf.d \
+-v ./www:/var/www \
+-v ./logs/nginx:/var/log/nginx \
+--publish 80:80 \
+--publish 443:443 \
+--name nginx_1.27 \
+--link container_php_8.3 \
+nginx:1.27
+
+
+
+#--link container_php_8.3 \
